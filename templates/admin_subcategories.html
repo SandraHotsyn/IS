@@ -1,0 +1,65 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+  <h3 class="mb-4">🗂️ Підкатегорії</h3>
+
+  <!-- Форма додавання підкатегорії -->
+  <form method="POST" class="mb-4">
+    <div class="row g-2">
+      <div class="col-md-5">
+        <input
+          name="name"
+          class="form-control"
+          placeholder="Назва підкатегорії"
+          required
+        />
+      </div>
+      <div class="col-md-5">
+        <select name="category_id" class="form-select">
+          {% for cat in categories %}
+          <option value="{{ cat.id }}">{{ cat.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">➕ Додати</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Список підкатегорій -->
+  <ul class="list-group">
+    {% for s in subcategories %}
+    <li
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      <div>
+        {{ s.name }}
+        <span class="badge bg-secondary ms-2">{{ s.category.name }}</span>
+      </div>
+      <div>
+        <a
+          href="{{ url_for('admin_bp.edit_subcategory', id=s.id) }}"
+          class="btn btn-sm btn-outline-primary me-1"
+          >✏️</a
+        >
+        <a
+          href="{{ url_for('admin_bp.delete_subcategory', id=s.id) }}"
+          class="btn btn-sm btn-outline-danger"
+          onclick="return confirm('Видалити підкатегорію {{ s.name }}?')"
+          >🗑</a
+        >
+      </div>
+    </li>
+    {% else %}
+    <li class="list-group-item text-muted">Підкатегорій ще немає</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Назад -->
+  <a
+    href="{{ url_for('admin_bp.admin_dashboard') }}"
+    class="btn btn-outline-primary mt-4"
+    >⬅ Назад до панелі</a
+  >
+</div>
+{% endblock %}

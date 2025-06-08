@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">
+    {% if product %}✏️ Редагувати{% else %}➕ Додати{% endif %} товар
+  </h2>
+
+  <form method="POST" enctype="multipart/form-data" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+      {{ form.name.label(class="form-label") }} {{
+      form.name(class="form-control") }} {% for error in form.name.errors %}
+      <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.price.label(class="form-label") }} {{
+      form.price(class="form-control") }} {% for error in form.price.errors %}
+      <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.stock.label(class="form-label") }} {{
+      form.stock(class="form-control") }} {% for error in form.stock.errors %}
+      <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.image.label(class="form-label") }} {{
+      form.image(class="form-control", onchange="previewImage(event)") }}
+      <div class="mt-2">
+        {% if product and product.image_url %}
+        <img
+          id="imagePreview"
+          src="{{ url_for('static', filename='images/' ~ product.image_url) }}"
+          alt="Зображення"
+          style="max-width: 200px"
+        />
+        {% else %}
+        <img
+          id="imagePreview"
+          src="#"
+          alt="Прев’ю"
+          style="display: none; max-width: 200px"
+        />
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="mb-3">
+      {{ form.description.label(class="form-label") }} {{
+      form.description(class="form-control", rows=3) }} {% for error in
+      form.description.errors %}
+      <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.subcategory_id.label(class="form-label") }} {{
+      form.subcategory_id(class="form-select") }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">💾 Зберегти</button>
+    <a
+      href="{{ url_for('admin_bp.admin_products') }}"
+      class="btn btn-outline-primary"
+      >⬅ Назад</a
+    >
+  </form>
+</div>
+<script>
+  function previewImage(event) {
+    const input = event.target;
+    const preview = document.getElementById("imagePreview");
+
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+        preview.style.display = "block";
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+{% endblock %}

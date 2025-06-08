@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h3 class="mb-4">✏️ Редагувати підкатегорію</h3>
+
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label">Назва підкатегорії</label>
+      <input type="text" name="name" class="form-control" value="{{ sub.name }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Категорія</label>
+      <select name="category_id" class="form-select" required>
+        {% for cat in categories %}
+          <option value="{{ cat.id }}" {% if cat.id == sub.category_id %}selected{% endif %}>{{ cat.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">💾 Зберегти</button>
+    <a href="{{ url_for('admin_bp.admin_subcategories') }}"  class="btn btn-outline-primary">⬅ Назад</a>
+  </form>
+</div>
+{% endblock %}

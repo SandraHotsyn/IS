@@ -1,0 +1,76 @@
+<footer class="bg-dark text-light py-4 mt-4">
+  <div
+    class="container d-flex flex-column flex-md-row justify-content-between align-items-start gap-4"
+  >
+    <div>
+      <div class="d-flex align-items-center mb-2">
+        <img
+          src="{{ url_for('static', filename='images/logo.png') }}"
+          alt="TechPoint"
+          width="36"
+          class="me-2"
+        />
+        <span class="h5 mb-0">TechPoint</span>
+      </div>
+      <p class="text-muted small">Магазин офісної та компʼютерної техніки</p>
+    </div>
+    <div>
+      <h6 class="text-uppercase">Меню</h6>
+      <ul class="list-unstyled small">
+        <li>
+          <a
+            href="{{ url_for('index') }}"
+            class="text-decoration-none text-light"
+            >Каталог</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ url_for('login') }}"
+            class="text-decoration-none text-light"
+            >Адмінпанель</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h6 class="text-uppercase">Контакти</h6>
+      <ul class="list-unstyled small">
+        <li>
+          📞
+          <a href="tel:+380961234567" class="text-decoration-none text-light"
+            >+380 96 123 45 67</a
+          >
+        </li>
+        <li>
+          📧
+          <a
+            href="mailto:support@techpoint.ua"
+            class="text-decoration-none text-light"
+            >support@techpoint.ua</a
+          >
+        </li>
+        <li>📍 Україна</li>
+      </ul>
+    </div>
+    <div>
+      <h6 class="text-uppercase">Ми в соцмережах</h6>
+      <div class="d-flex gap-3">
+        <a href="https://facebook.com" class="text-light" target="_blank"
+          ><i class="fab fa-facebook fa-lg"></i
+        ></a>
+        <a href="https://instagram.com" class="text-light" target="_blank"
+          ><i class="fab fa-instagram fa-lg"></i
+        ></a>
+        <a href="https://t.me/techpoint_shop" class="text-light" target="_blank"
+          ><i class="fab fa-telegram fa-lg"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center text-muted mt-4 small">
+    © {{ current_year if current_year else 2025 }} TechPoint. Всі права
+    захищені.
+  </div>
+</footer>

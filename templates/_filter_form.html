@@ -1,0 +1,63 @@
+<div class="container mb-4">
+  <!-- 🔎 Пошук -->
+  <form method="GET" action="{{ url_for('index') }}" class="bg-white p-3 rounded-3 shadow-sm mb-3">
+    <div class="row">
+      <div class="col-md-10">
+        <input type="text" name="q" class="form-control" placeholder="🔍 Пошук товару..." value="{{ request.args.get('q', '') }}">
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">🔍 Пошук</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- 🧩 Фільтрація -->
+  <form method="GET" action="{{ url_for('index') }}" id="filterForm" class="bg-white p-3 rounded-3 shadow-sm">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <select name="category" id="category" class="form-select">
+          <option value="">📁 Усі категорії</option>
+          {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if request.args.get('category') == cat.id|string %}selected{% endif %}>{{ cat.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <select name="subcategory" id="subcategory" class="form-select">
+          <option value="">🧷 Усі підкатегорії</option>
+          {% for sub in subcategories %}
+            {% if not request.args.get("category") or sub.category_id|string == request.args.get("category") %}
+              <option value="{{ sub.id }}" {% if request.args.get('subcategory') == sub.id|string %}selected{% endif %}>{{ sub.name }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const categorySelect = document.querySelector("#category");
+    const subcategorySelect = document.querySelector("#subcategory");
+    const filterForm = document.querySelector("#filterForm");
+  
+    categorySelect.addEventListener("change", () => filterForm.submit());
+    subcategorySelect.addEventListener("change", () => filterForm.submit());
+  
+    categorySelect.addEventListener("change", function () {
+      fetch(`/get_subcategories/${this.value}`)
+        .then((res) => res.json())
+        .then((data) => {
+          subcategorySelect.innerHTML = '<option value="">🧷 Усі підкатегорії</option>';
+          data.forEach(sub => {
+            const opt = document.createElement("option");
+            opt.value = sub.id;
+            opt.textContent = sub.name;
+            subcategorySelect.appendChild(opt);
+          });
+        });
+    });
+  });
+  </script>
+  

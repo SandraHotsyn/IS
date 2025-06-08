@@ -1,0 +1,21 @@
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+header {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header a:hover {
+  color: #0d6efd !important;
+}
+
+h1 {
+  color: #333;
+}
+
+.transition-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}

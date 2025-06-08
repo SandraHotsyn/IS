@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-5" style="min-height: 70vh">
+  <h1 class="mb-4">👋 Вітаю, {{ current_user.username }}!</h1>
+  <h3 class="mb-3">Панель керування</h3>
+
+  <div class="list-group">
+    <a
+      href="{{ url_for('admin_bp.admin_categories') }}"
+      class="list-group-item list-group-item-action"
+    >
+      📂 Управління категоріями
+    </a>
+    <a
+      href="{{ url_for('admin_bp.admin_subcategories') }}"
+      class="list-group-item list-group-item-action"
+    >
+      🗂️ Управління підкатегоріями
+    </a>
+
+    <a
+      href="{{ url_for('admin_bp.admin_products') }}"
+      class="list-group-item list-group-item-action"
+    >
+      📦 Управління товарами
+    </a>
+    <a
+      href="{{ url_for('orders') }}"
+      class="list-group-item list-group-item-action"
+    >
+      📋 Перегляд замовлень
+    </a>
+    <a
+      href="{{ url_for('export_orders') }}"
+      class="list-group-item list-group-item-action"
+    >
+      ⬇️ Експорт замовлень у Excel
+    </a>
+    <a
+      href="{{ url_for('admin_bp.logout') }}"
+      class="list-group-item list-group-item-action text-danger"
+    >
+      🚪 Вийти
+    </a>
+  </div>
+</div>
+{% endblock %}

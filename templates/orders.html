@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>📋 Усі замовлення</h2>
+    <a href="{{ url_for('export_orders') }}" class="btn btn-success"
+      >⬇ Експортувати у Excel</a
+    >
+  </div>
+
+  {% if orders %} {% for order in orders %}
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-3">🧾 Замовлення #{{ order.id }}</h5>
+
+        {% if order.status == "опрацьовано" %}
+        <span class="badge bg-success">✅ Опрацьовано</span>
+        {% elif order.status == "відмова" %}
+        <span class="badge bg-danger">❌ Відмова</span>
+        {% else %}
+        <span class="badge bg-warning text-dark">🕓 Нове</span>
+        {% endif %}
+      </div>
+
+      <p class="card-text">
+        <strong>Клієнт:</strong> {{ order.customer.name }}<br />
+        <strong>Телефон:</strong> {{ order.customer.phone }}<br />
+        <strong>Дата:</strong> {{ order.date.strftime('%Y-%m-%d %H:%M') }}
+        <strong>Email:</strong> {{ order.customer.email }}<br />
+        <strong>Адреса:</strong> {{ order.customer.address }}<br />
+      </p>
+
+      <ul class="list-group mb-2">
+        {% for item in order.items %}
+        <li class="list-group-item">
+          {{ item.product.name }} — {{ item.quantity }} × {{ item.unit_price }}
+          грн
+        </li>
+        {% endfor %}
+      </ul>
+
+      <p class="fw-bold">Сума: {{ order.total }} грн</p>
+
+      {% if order.status|lower == "нове" %}
+      <div class="mt-2">
+        <a
+          href="{{ url_for('mark_order', order_id=order.id, status='опрацьовано') }}"
+          class="btn btn-sm btn-outline-success me-2"
+          >✅ Опрацьовано</a
+        >
+        <a
+          href="{{ url_for('mark_order', order_id=order.id, status='відмова') }}"
+          class="btn btn-sm btn-outline-danger"
+          >❌ Відмова</a
+        >
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <div class="alert alert-info">Немає замовлень.</div>
+  {% endif %}
+
+  <a href="{{ url_for('index') }}" class="btn btn-outline-primary mt-4"
+    >⬅ Повернутися на головну</a
+  >
+</div>
+{% endblock %}

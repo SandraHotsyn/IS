@@ -1,0 +1,45 @@
+<header class="bg-light shadow-sm">
+  <div class="container d-flex justify-content-between align-items-center py-3">
+    <a
+      href="{{ url_for('index') }}"
+      class="navbar-brand fw-bold fs-4 text-dark text-decoration-none"
+    >
+      <img
+        src="{{ url_for('static', filename='images/logo.png') }}"
+        alt="Логотип"
+        style="height: 40px"
+        class="me-2"
+      />
+      TechPoint
+    </a>
+    <nav class="d-none d-md-block">
+      <a
+        href="{{ url_for('index') }}"
+        class="text-dark text-decoration-none mx-2"
+        >Каталог</a
+      >
+      <a
+        href="{{ url_for('login') }}"
+        class="text-dark text-decoration-none mx-2"
+        >Адмінпанель</a
+      >
+    </nav>
+    <div class="d-flex align-items-center">
+      <a href="https://www.facebook.com/" class="text-dark mx-2" target="_blank"
+        ><i class="fab fa-facebook fa-lg"></i
+      ></a>
+      <a
+        href="https://www.instagram.com/"
+        class="text-dark mx-2"
+        target="_blank"
+        ><i class="fab fa-instagram fa-lg"></i
+      ></a>
+      <a
+        href="https://t.me/techpoint_shop"
+        class="text-dark mx-2"
+        target="_blank"
+        ><i class="fab fa-telegram fa-lg"></i
+      ></a>
+    </div>
+  </div>
+</header>

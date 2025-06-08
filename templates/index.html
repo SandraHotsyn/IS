@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-5">
+  {% include "_filter_form.html" %}
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    {% for product in products %}
+    <div class="col">
+      <div class="card h-100">
+        {% if product.image_url %}
+        <img
+          src="{{ url_for('static', filename='images/' + product.image_url) }}"
+          class="card-img-top"
+          alt="{{ product.name }}"
+          style="max-width: 100%; max-height: 300px; object-fit: contain"
+        />
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">
+            <strong>{{ product.price }} грн</strong><br />
+            <small class="text-muted">
+              Категорія: {{ product.subcategory.category.name }}<br />
+              Підкатегорія: {{ product.subcategory.name }}
+            </small>
+          </p>
+        </div>
+        <div class="card-footer text-center">
+          <a
+            href="{{ url_for('product_page', product_id=product.id) }}"
+            class="btn btn-primary w-100"
+            >🛍️ Замовити</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
